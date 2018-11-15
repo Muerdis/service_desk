@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from request.models import RequestReason, Request
+from request.models import RequestReason, Request, RequestType
 
 
 class RequestReasonSerializer(serializers.ModelSerializer):
@@ -12,4 +12,10 @@ class RequestReasonSerializer(serializers.ModelSerializer):
 class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
+        fields = '__all__'
+
+
+class RequestTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequestType
         fields = '__all__'

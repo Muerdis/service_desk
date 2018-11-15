@@ -2,8 +2,9 @@ import datetime
 
 from rest_framework import viewsets
 
-from request.models import RequestReason, Request
-from request.serializers import RequestReasonSerializer, RequestSerializer
+from request.models import RequestReason, Request, RequestType
+from request.serializers import RequestReasonSerializer, RequestSerializer, \
+    RequestTypeSerializer
 
 
 class RequestReasonViewSet(viewsets.ModelViewSet):
@@ -61,3 +62,10 @@ class RequestViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(status=status)
 
         return queryset
+
+
+class RequestTypeViewSet(viewsets.ModelViewSet):
+    """API для типов заявки"""
+
+    queryset = RequestType.objects.all()
+    serializer_class = RequestTypeSerializer

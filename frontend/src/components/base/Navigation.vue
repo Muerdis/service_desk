@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-navigation-drawer(v-model="drawer" fixed app)
+  v-navigation-drawer(v-model="drawer" fixed app width="250")
     v-avatar(:tile="false" size="200"  color="grey lighten-4" style="margin-left: 25px;")
       img(src="@/assets/logo.png" alt="avatar")
     v-list(dense)

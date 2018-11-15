@@ -53,9 +53,13 @@ class RequestViewSet(viewsets.ModelViewSet):
             )
             queryset = queryset.filter(date_created__lte=create_date_to)
 
-        if params.get('owner'):
-            owner = params.get('owner')
-            queryset = queryset.filter(owner=owner)
+        if params.get('assigned_user'):
+            assigned_user = params.get('assigned_user')
+            queryset = queryset.filter(assigned_user=assigned_user)
+
+        if params.get('created_user'):
+            created_user = params.get('created_user')
+            queryset = queryset.filter(created_user=created_user)
 
         if params.get('status'):
             status = params.get('status')

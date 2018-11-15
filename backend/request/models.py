@@ -59,14 +59,25 @@ class Request(models.Model):
         null=True,
         on_delete=models.CASCADE
     )
-    owner = models.ForeignKey(
+    assigned_user = models.ForeignKey(
         'user.User',
-        verbose_name='Владелец заявки',
-        on_delete=models.CASCADE
+        verbose_name='На кого назначена заявка',
+        related_name='assigned_user',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     date_created = models.DateTimeField(
         auto_now=True,
         verbose_name='Дата и время создания'
+    )
+    created_user = models.ForeignKey(
+        'user.User',
+        verbose_name='Создатель заявки',
+        related_name='created_user',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     status = models.PositiveSmallIntegerField(
         verbose_name='Статус',

@@ -1,4 +1,5 @@
 from django.db import models
+from djchoices import DjangoChoices, ChoiceItem
 
 
 class RequestReason(models.Model):
@@ -30,12 +31,26 @@ class RequestType(models.Model):
         return self.name
 
 
+class RequestStatuses(DjangoChoices):
+    """ Organization using
+    """
+    NEW = ChoiceItem(1, 'Новая')
+    IN_WORK = ChoiceItem(2, 'В работе')
+    CLOSED = ChoiceItem(3, 'Завершена')
+
+
 class Request(models.Model):
     """Заявка"""
 
-    name = models.CharField(
+    title = models.CharField(
         max_length=50,
-        verbose_name='Название',
+        verbose_name='Заголовок',
+        default=''
+    )
+    text = models.CharField(
+        max_length=50,
+        verbose_name='Текст',
+        default=''
     )
     request_reason = models.ForeignKey(
         'request.RequestReason',
@@ -49,6 +64,15 @@ class Request(models.Model):
         verbose_name='Владелец заявки',
         on_delete=models.CASCADE
     )
+    date_created = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Дата и время создания'
+    )
+    status = models.PositiveSmallIntegerField(
+        verbose_name='Статус',
+        choices=RequestStatuses.choices,
+        default=RequestStatuses.NEW
+    )
 
     def __str__(self):
-        return self.name
+        return self.title

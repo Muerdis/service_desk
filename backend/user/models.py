@@ -16,6 +16,8 @@ class User(AbstractUser):
     phone = models.CharField(
         'Номер мобильного телефона',
         max_length=10,
+        null=True,
+        blank=True,
         validators=[validate_phone]
     )
     is_verify_phone = models.BooleanField(
@@ -29,6 +31,8 @@ class User(AbstractUser):
     department = models.ForeignKey(
         'user.Department',
         verbose_name='Отдел',
+        null=True,
+        blank=True,
         on_delete=models.CASCADE
     )
 

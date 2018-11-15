@@ -8,25 +8,25 @@
             request-count-card(
               color="red darken-1"
               title="Входящие заявки"
-              count="5"
+              :count="`${requestsNew.length}`"
               icon="arrow_downward")
           v-flex(xs3 text-xs-center)
             request-count-card(
               color="orange lighten-1"
               title="В работе"
-              count="3"
+              :count="`${requestsInWork.length}`"
               icon="update")
           v-flex(xs3 text-xs-center)
             request-count-card(
               color="light-blue lighten-1"
               title="Исходящие заявки"
-              count="4"
+              :count="`${requestsCreated.length}`"
               icon="arrow_upward")
           v-flex(xs3 text-xs-center)
             request-count-card(
               color="green lighten-1"
               title="Выполнено"
-              count="2"
+              :count="`${requestsClosed.length}`"
               icon="done")
           v-flex(xs6)
             v-card(dark color="white")
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import BaseComponent from '../components/base/BaseComponent.vue';
 import RequestCountCard from '../components/modules/request/RequestCountCard.vue';
 
@@ -45,6 +47,27 @@ export default {
   components: {
     BaseComponent,
     RequestCountCard,
+  },
+  computed: {
+    ...mapGetters({
+      requests: 'request/requests',
+      user: 'user/user',
+    }),
+    requestsNew() {
+      return this.requests.filter(request => request.status === 1);
+    },
+    requestsInWork() {
+      return this.requests.filter(request => request.status === 2);
+    },
+    requestsClosed() {
+      return this.requests.filter(request => request.status === 3);
+    },
+    requestsCreated() {
+      return this.requests.filter(request => request.created_user === this.user.id);
+    },
+  },
+  mounted() {
+    this.$store.dispatch('request/getRequests');
   },
 };
 </script>

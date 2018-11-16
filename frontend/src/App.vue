@@ -4,7 +4,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   mounted() {
@@ -12,3 +11,7 @@ export default {
   },
 };
 </script>
+
+<style>
+  @import './app.css';
+</style>

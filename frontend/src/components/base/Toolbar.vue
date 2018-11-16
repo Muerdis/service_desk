@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-toolbar(color="grey darken-3" dark app)
+  v-toolbar.no-transition(color="grey darken-3" dark app)
     v-toolbar-side-icon(@click.stop="changeDrawerState")
     v-toolbar-title Service desk
 </template>
@@ -23,5 +23,7 @@ export default {
 </script>
 
 <style scoped>
-
+.no-transition {
+  transition: none;
+}
 </style>

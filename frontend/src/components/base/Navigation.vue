@@ -8,7 +8,7 @@
           v-icon(style="font-size: 40px;") home
         v-list-tile-content
           v-list-tile-title.title Главная
-      v-list-tile(@click="")
+      v-list-tile(to="/requests")
         v-list-tile-action
           v-icon(style="font-size: 40px;") description
         v-list-tile-content

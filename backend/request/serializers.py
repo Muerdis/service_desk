@@ -10,9 +10,15 @@ class RequestReasonSerializer(serializers.ModelSerializer):
 
 
 class RequestSerializer(serializers.ModelSerializer):
+    created_user_name = serializers.CharField(source='created_user.get_full_name')
+    date_created = serializers.DateTimeField(format='%d-%m-%Y %H:%M')
+
     class Meta:
         model = Request
-        fields = '__all__'
+        fields = (
+            'id', 'title', 'text', 'date_created', 'status',
+            'request_reason', 'assigned_user', 'created_user', 'created_user_name'
+        )
 
 
 class RequestTypeSerializer(serializers.ModelSerializer):

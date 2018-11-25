@@ -9,24 +9,28 @@
               color="red darken-1"
               title="Входящие заявки"
               :count="`${requestsNew.length}`"
+              link="/incoming-requests"
               icon="arrow_downward")
-          v-flex(xs3 text-xs-center)
-            request-count-card(
-              color="orange lighten-1"
-              title="В работе"
-              :count="`${requestsInWork.length}`"
-              icon="update")
           v-flex(xs3 text-xs-center)
             request-count-card(
               color="light-blue lighten-1"
               title="Исходящие заявки"
               :count="`${requestsCreated.length}`"
+              link="/outgoing-requests"
               icon="arrow_upward")
+          v-flex(xs3 text-xs-center)
+            request-count-card(
+              color="orange lighten-1"
+              title="В работе"
+              :count="`${requestsInWork.length}`"
+              link="/in-work-requests"
+              icon="update")
           v-flex(xs3 text-xs-center)
             request-count-card(
               color="green lighten-1"
               title="Выполнено"
               :count="`${requestsClosed.length}`"
+              link="/completed-requests"
               icon="done")
           v-flex(xs6)
             v-card(dark color="white")
@@ -54,20 +58,23 @@ export default {
       user: 'user/user',
     }),
     requestsNew() {
-      return this.requests.filter(request => request.status === 1);
+      return this.requests.filter(
+        request => request.status === 1 && request.assigned_user === this.user.id,
+      );
     },
     requestsInWork() {
-      return this.requests.filter(request => request.status === 2);
+      return this.requests.filter(
+        request => request.status === 2 && request.assigned_user === this.user.id,
+      );
     },
     requestsClosed() {
-      return this.requests.filter(request => request.status === 3);
+      return this.requests.filter(
+        request => request.status === 3 && request.assigned_user === this.user.id,
+      );
     },
     requestsCreated() {
       return this.requests.filter(request => request.created_user === this.user.id);
     },
-  },
-  mounted() {
-    this.$store.dispatch('request/getRequests');
   },
 };
 </script>

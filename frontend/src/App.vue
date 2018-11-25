@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app#inspire
+  v-app#inspire.main-background
     router-view
 </template>
 
@@ -8,6 +8,7 @@ export default {
   name: 'App',
   mounted() {
     this.$store.dispatch('user/getUserInfo');
+    this.$store.dispatch('request/getRequests');
   },
 };
 </script>

@@ -14,9 +14,29 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/requests',
-      name: 'requests',
-      component: () => import('../views/Requests.vue'),
+      path: '/agile',
+      name: 'agile',
+      component: () => import('../views/Agile.vue'),
+    },
+    {
+      path: '/incoming-requests',
+      name: 'incoming-requests',
+      component: () => import('../views/IncomingRequests.vue'),
+    },
+    {
+      path: '/outgoing-requests',
+      name: 'outgoing-requests',
+      component: () => import('../views/OutgoingRequests.vue'),
+    },
+    {
+      path: '/in-work-requests',
+      name: 'in-work-requests',
+      component: () => import('../views/InWorkRequests.vue'),
+    },
+    {
+      path: '/completed-requests',
+      name: 'completed-work-requests',
+      component: () => import('../views/CompletedRequests.vue'),
     },
   ],
 });

@@ -29,7 +29,7 @@ import BaseComponent from '../components/base/BaseComponent.vue';
 import RequestsColumn from '../components/modules/request/RequestsColumn.vue';
 
 export default {
-  name: 'Requests',
+  name: 'Agile',
   components: {
     BaseComponent,
     RequestsColumn,
@@ -51,9 +51,6 @@ export default {
     requestsCreated() {
       return this.requests.filter(request => request.created_user === this.user.id);
     },
-  },
-  mounted() {
-    this.$store.dispatch('request/getRequests');
   },
 };
 </script>

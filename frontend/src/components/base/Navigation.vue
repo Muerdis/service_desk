@@ -5,19 +5,26 @@
     v-list(dense)
       v-list-tile(to="/")
         v-list-tile-action
-          v-icon(style="font-size: 40px;") home
+          v-icon home
         v-list-tile-content
-          v-list-tile-title.title Главная
-      v-list-tile(to="/requests")
-        v-list-tile-action
-          v-icon(style="font-size: 40px;") description
-        v-list-tile-content
-          v-list-tile-title.title Заявки
+          v-list-tile-title Главная
       v-list-tile(@click="")
         v-list-tile-action
-          v-icon(style="font-size: 40px;") vertical_split
+          v-icon vertical_split
         v-list-tile-content
-          v-list-tile-title.title Новости
+          v-list-tile-title Новости
+      v-list-group(
+        v-for="item in items" v-model="item.active"
+        :key="item.title" :prepend-icon="item.action" no-action
+      )
+        v-list-tile(slot="activator")
+          v-list-tile-content
+            v-list-tile-title {{ item.title }}
+        v-list-tile(v-for="subItem in item.items" :key="subItem.title" :to="subItem.to")
+          v-list-tile-content
+            v-list-tile-title {{ subItem.title }}
+          v-list-tile-action
+            v-icon {{ subItem.action }}
 </template>
 
 <script>
@@ -25,6 +32,24 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'Navigation',
+  data() {
+    return {
+      items: [
+        {
+          action: 'description',
+          title: 'Заявки',
+          active: true,
+          items: [
+            { title: 'Agile доска', to: '/requests' },
+            { title: 'Входящие' },
+            { title: 'Исходящие' },
+            { title: 'В работе' },
+            { title: 'Выполнено' },
+          ],
+        },
+      ],
+    };
+  },
   computed: {
     ...mapGetters({
       stDrawer: 'base/drawer',

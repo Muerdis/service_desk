@@ -1,11 +1,11 @@
 <template lang="pug">
   v-card(dark :color="color")
     v-layout
-      v-flex(xs8)
+      v-flex(xs9)
         h2 {{ title }}
         span.display-3 {{ count }}
-      v-flex(xs4)
-        v-icon(style="font-size: 100px;") {{ icon }}
+      v-flex(xs3)
+        v-icon(style="font-size: 50px;") {{ icon }}
     v-divider
     v-card-actions.pa-3
       span.title(style="text-align: center; width: 100%;") Просмотр

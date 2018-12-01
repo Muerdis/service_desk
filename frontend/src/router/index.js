@@ -35,8 +35,18 @@ export default new Router({
     },
     {
       path: '/completed-requests',
-      name: 'completed-work-requests',
+      name: 'completed-requests',
       component: () => import('../views/CompletedRequests.vue'),
+    },
+    {
+      path: '/device-templates',
+      name: 'device-templates',
+      component: () => import('../views/DeviceTemplates.vue'),
+    },
+    {
+      path: '/devices',
+      name: 'devices',
+      component: () => import('../views/Devices.vue'),
     },
   ],
 });

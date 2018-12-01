@@ -1,6 +1,6 @@
 <template lang="pug">
-  v-navigation-drawer(v-model="drawer" fixed app width="250")
-    v-avatar(:tile="false" size="200"  color="grey lighten-4" style="margin-left: 25px;")
+  v-navigation-drawer(v-model="drawer" fixed app width="300")
+    v-avatar(:tile="false" size="200"  color="grey lighten-4" style="margin-left: 50px;")
       img(src="@/assets/logo.png" alt="avatar")
     v-list(dense)
       v-list-tile(to="/")
@@ -45,6 +45,15 @@ export default {
             { title: 'Исходящие', to: '/outgoing-requests' },
             { title: 'В работе', to: '/in-work-requests' },
             { title: 'Выполнено', to: '/completed-requests' },
+          ],
+        },
+        {
+          action: 'build',
+          title: 'Оборудование',
+          active: true,
+          items: [
+            { title: 'Шаблоны оборудования', to: '/device-templates' },
+            { title: 'Список оборудования', to: '/devices' },
           ],
         },
       ],

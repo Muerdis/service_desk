@@ -55,8 +55,6 @@ class Request(models.Model):
     request_reason = models.ForeignKey(
         'request.RequestReason',
         verbose_name='Причина заявки',
-        blank=True,
-        null=True,
         on_delete=models.CASCADE
     )
     assigned_user = models.ForeignKey(
@@ -64,8 +62,6 @@ class Request(models.Model):
         verbose_name='На кого назначена заявка',
         related_name='assigned_user',
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
     )
     date_created = models.DateTimeField(
         auto_now=True,
@@ -76,8 +72,6 @@ class Request(models.Model):
         verbose_name='Создатель заявки',
         related_name='created_user',
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
     )
     status = models.PositiveSmallIntegerField(
         verbose_name='Статус',

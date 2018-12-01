@@ -27,8 +27,35 @@ async function deleteRequest(context, id) {
   getRequests(context);
 }
 
+async function getRequestTypes(context) {
+  const infoUrl = '/request-types/';
+  const infoPromise = requests.api.get(infoUrl);
+  const infoResponse = await Promise.resolve(infoPromise);
+
+  context.commit('REQUEST_TYPES', infoResponse.data.results);
+}
+
+async function getRequestReasons(context) {
+  const infoUrl = '/request-reasons/';
+  const infoPromise = requests.api.get(infoUrl);
+  const infoResponse = await Promise.resolve(infoPromise);
+
+  context.commit('REQUEST_REASONS', infoResponse.data.results);
+}
+
+async function createRequest(context, info) {
+  const createUrl = '/requests/';
+  const createPromise = requests.api.post(createUrl, info);
+  await Promise.resolve(createPromise);
+
+  getRequests(context);
+}
+
 export default {
   getRequests,
   changeStatus,
   deleteRequest,
+  getRequestTypes,
+  getRequestReasons,
+  createRequest,
 };

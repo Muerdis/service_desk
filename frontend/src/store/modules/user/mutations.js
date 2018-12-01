@@ -3,6 +3,12 @@ const USER = (state, user) => {
   st.user = user;
 };
 
+const USERS = (state, users) => {
+  const st = state;
+  st.users = users;
+};
+
 export default {
   USER,
+  USERS,
 };

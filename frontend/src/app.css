@@ -14,3 +14,7 @@ hr {
 .faded-text {
     color: darkgrey;
 }
+
+.text-center {
+    text-align: center;
+}

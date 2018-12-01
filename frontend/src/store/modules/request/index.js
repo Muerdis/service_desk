@@ -4,6 +4,8 @@ import mutations from './mutations';
 
 const state = {
   requests: [],
+  requestTypes: [],
+  requestReasons: [],
 };
 
 export default {

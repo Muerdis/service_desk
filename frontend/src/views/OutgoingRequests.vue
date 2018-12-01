@@ -6,7 +6,7 @@
         v-layout(row wrap)
           request-item(v-for="request in requestsCreated" :request="request" mode="outgoing")
     v-dialog(v-model="dialog" persistent max-width="600px")
-      v-btn(slot="activator" fab fixed bottom right dark color="green")
+      v-btn(slot="activator" fab fixed bottom right dark color="primary")
         v-icon(dark) add
       v-card
         v-card-title

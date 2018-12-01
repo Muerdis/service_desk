@@ -6,6 +6,11 @@ p {
     width: 100%;
 }
 
+hr {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 .faded-text {
     color: darkgrey;
 }

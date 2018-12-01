@@ -28,7 +28,7 @@
         v-card-actions
           v-spacer
           v-btn(color="blue darken-1" flat @click="clearForm") Закрыть
-          v-btn(color="blue darken-1" flat @click="") Готово
+          v-btn(color="blue darken-1" flat @click="createDeviceTemplate") Готово
 </template>
 
 <script>
@@ -62,6 +62,15 @@ export default {
       this.dialog = null;
       this.templateName = null;
       this.parameters = [];
+    },
+    createDeviceTemplate() {
+      const info = {
+        name: this.templateName,
+        params: this.parameters,
+      };
+
+      this.$store.dispatch('device/createDeviceTemplate', info);
+      this.clearForm();
     },
   },
 };

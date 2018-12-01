@@ -5,6 +5,7 @@
         span.title(style="margin-bottom: 10px;") {{ request.title }}
         p Тип: {{ request.reason_type_name }}
         p Причина: {{ request.reason_name }}
+        p Назначена на: {{ request.assigned_user_name }}
         p {{ request.text }}
         p.faded-text {{ request.created_user_name }}
         p.faded-text {{ request.date_created }}

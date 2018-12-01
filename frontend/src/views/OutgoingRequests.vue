@@ -117,7 +117,6 @@ export default {
         request_reason: this.requestReason,
         assigned_user: this.assignedUser,
         created_user: this.user.id,
-        date_created: new Date(),
       };
 
       this.$store.dispatch('request/createRequest', info);

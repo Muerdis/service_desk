@@ -14,7 +14,7 @@ class RequestSerializer(serializers.ModelSerializer):
     assigned_user_name = serializers.CharField(source='assigned_user.get_full_name', read_only=True)
     reason_name = serializers.CharField(source='request_reason.text', read_only=True)
     reason_type_name = serializers.CharField(source='request_reason.request_type.name', read_only=True)
-    date_created = serializers.DateTimeField(format='%d-%m-%Y %H:%M')
+    date_created = serializers.DateTimeField(format='%d-%m-%Y %H:%M', read_only=True)
 
     class Meta:
         model = Request

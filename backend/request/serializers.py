@@ -25,6 +25,10 @@ class RequestSerializer(serializers.ModelSerializer):
 
 
 class RequestTypeSerializer(serializers.ModelSerializer):
+    text = serializers.CharField(source='name', read_only=True)
+
     class Meta:
         model = RequestType
-        fields = '__all__'
+        fields = (
+            'id', 'name', 'text'
+        )

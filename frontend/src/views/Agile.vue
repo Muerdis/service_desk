@@ -40,13 +40,19 @@ export default {
       user: 'user/user',
     }),
     requestsNew() {
-      return this.requests.filter(request => request.status === 1);
+      return this.requests.filter(
+        request => request.status === 1 && request.assigned_user === this.user.id,
+      );
     },
     requestsInWork() {
-      return this.requests.filter(request => request.status === 2);
+      return this.requests.filter(
+        request => request.status === 2 && request.assigned_user === this.user.id,
+      );
     },
     requestsClosed() {
-      return this.requests.filter(request => request.status === 3);
+      return this.requests.filter(
+        request => request.status === 3 && request.assigned_user === this.user.id,
+      );
     },
     requestsCreated() {
       return this.requests.filter(request => request.created_user === this.user.id);

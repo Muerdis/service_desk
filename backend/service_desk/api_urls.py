@@ -3,9 +3,10 @@ from rest_framework import routers
 
 from request.views import RequestReasonViewSet, RequestViewSet, \
     RequestTypeViewSet
-from user.views import UserView
+from user.views import UserView, UserViewSet
 
 router = routers.DefaultRouter()
+router.register(r'users', UserViewSet, base_name='users')
 router.register(r'request-reasons', RequestReasonViewSet, base_name='request-reasons')
 router.register(r'requests', RequestViewSet, base_name='requests')
 router.register(r'request-types', RequestTypeViewSet, base_name='request-types')

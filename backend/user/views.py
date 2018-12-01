@@ -1,8 +1,16 @@
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from user.models import User
 from user.serializers import UserSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """API для типов заявки"""
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class UserView(APIView):

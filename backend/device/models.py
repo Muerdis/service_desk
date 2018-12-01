@@ -12,6 +12,9 @@ class DeviceTemplate(models.Model):
     )
     params = JSONField(verbose_name='Характеристики')
 
+    def __str__(self):
+        return self.name
+
 
 class Device(models.Model):
     """Оборудование"""
@@ -32,3 +35,6 @@ class Device(models.Model):
         related_name='device_template',
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        return self.inventory_number

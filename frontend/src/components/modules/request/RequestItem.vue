@@ -47,8 +47,8 @@ export default {
     },
     deleteRequest() {
       this.$store.dispatch('request/deleteRequest', this.request.id);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -10,7 +10,7 @@
         v-icon(dark) add
       v-card
         v-card-title
-          span.headline User Profile
+          span.headline Создание заявки
         v-card-text
           v-container(grid-list-md)
             v-layout(wrap)
@@ -23,14 +23,14 @@
                 )
               v-flex(xs12 sm6)
                 v-select(
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
+                  :items="['Техническое обеспечение проведеня мероприятия']"
+                  label="Причина*"
                   required
                 )
         v-card-actions
           v-spacer
-          v-btn(color="blue darken-1" flat @click.native="dialog = false") Close
-          v-btn(color="blue darken-1" flat @click.native="dialog = false") Save
+          v-btn(color="blue darken-1" flat @click.native="dialog = false") Закрыть
+          v-btn(color="blue darken-1" flat @click.native="dialog = false") Готово
 </template>
 
 <script>

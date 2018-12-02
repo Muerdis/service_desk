@@ -6,7 +6,9 @@
         v-layout(wrap)
           v-flex(xs6 v-for="deviceTemplate in deviceTemplates")
             device-template-item(:deviceTemplate="deviceTemplate")
-    device-template-form
+    device-template-form(
+      :id="null" :dialogState="false" mode="create" :templateNameInit="null" :parametersInit="[]"
+    )
 </template>
 
 <script>

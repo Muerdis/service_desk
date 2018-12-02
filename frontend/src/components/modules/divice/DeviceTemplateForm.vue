@@ -1,10 +1,15 @@
 <template lang="pug">
   v-dialog(v-model="dialog" persistent max-width="800px")
-    v-btn(slot="activator" fab fixed bottom right dark color="primary")
+    v-btn(v-if="mode === 'create'" slot="activator" fab fixed bottom right dark color="primary")
       v-icon(dark) add
     v-card
       v-card-title
-        span.headline.text-center(style="width: 100%;") Добавление шаблона оборудования
+        span.headline.text-center(
+          v-if="mode === 'create'" style="width: 100%;"
+        ) Добавление шаблона оборудования
+        span.headline.text-center(
+          v-if="mode === 'edit'" style="width: 100%;"
+        ) Изменение шаблона оборудования
       v-card-text
         v-container(grid-list-md)
           v-layout(wrap)
@@ -23,17 +28,39 @@
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" flat @click="clearForm") Закрыть
-        v-btn(color="blue darken-1" flat @click="createDeviceTemplate") Готово
+        v-btn(
+          v-if="mode === 'create'" color="blue darken-1" flat @click="createDeviceTemplate"
+        ) Готово
+        v-btn(
+          v-if="mode === 'edit'" color="blue darken-1" flat @click="editDeviceTemplate"
+        ) Сохранить изменения
 </template>
 
 <script>
 export default {
   name: 'DeviceTemplateForm',
+  props: {
+    dialogState: {
+      type: Boolean,
+    },
+    mode: {
+      type: String,
+    },
+    id: {
+      type: Number,
+    },
+    templateNameInit: {
+      type: String,
+    },
+    parametersInit: {
+      type: Array,
+    },
+  },
   data() {
     return {
-      dialog: false,
-      templateName: null,
-      parameters: [],
+      dialog: this.dialogState,
+      templateName: this.templateNameInit,
+      parameters: this.parametersInit,
     };
   },
   methods: {
@@ -47,9 +74,10 @@ export default {
       });
     },
     clearForm() {
-      this.dialog = null;
+      this.dialog = false;
       this.templateName = null;
       this.parameters = [];
+      this.$emit('closeAction');
     },
     createDeviceTemplate() {
       const info = {
@@ -58,6 +86,16 @@ export default {
       };
 
       this.$store.dispatch('device/createDeviceTemplate', info);
+      this.clearForm();
+    },
+    editDeviceTemplate() {
+      const info = {
+        id: this.id,
+        name: this.templateName,
+        params: this.parameters,
+      };
+
+      this.$store.dispatch('device/editDeviceTemplate', info);
       this.clearForm();
     },
   },

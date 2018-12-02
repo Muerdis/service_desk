@@ -16,7 +16,25 @@ async function createDeviceTemplate(context, info) {
   getDeviceTemplates(context);
 }
 
+async function deleteDeviceTemplate(context, id) {
+  const deleteUrl = `/device-templates/${id}/`;
+  const deletePromise = requests.api.delete(deleteUrl);
+  await Promise.resolve(deletePromise);
+
+  getDeviceTemplates(context);
+}
+
+async function editDeviceTemplate(context, info) {
+  const patchUrl = `/device-templates/${info.id}/`;
+  const patchPromise = requests.api.patch(patchUrl, info);
+  await Promise.resolve(patchPromise);
+
+  getDeviceTemplates(context);
+}
+
 export default {
   getDeviceTemplates,
   createDeviceTemplate,
+  deleteDeviceTemplate,
+  editDeviceTemplate,
 };

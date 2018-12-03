@@ -9,7 +9,7 @@ from user.serializers import UserSerializer
 class UserViewSet(viewsets.ModelViewSet):
     """API для типов заявки"""
 
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
 
 

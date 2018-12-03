@@ -10,7 +10,7 @@ from request.serializers import RequestReasonSerializer, RequestSerializer, \
 class RequestReasonViewSet(viewsets.ModelViewSet):
     """API для причин заявки"""
 
-    queryset = RequestReason.objects.all()
+    queryset = RequestReason.objects.all().order_by('id')
     serializer_class = RequestReasonSerializer
 
     def get_queryset(self):
@@ -27,7 +27,7 @@ class RequestReasonViewSet(viewsets.ModelViewSet):
 class RequestViewSet(viewsets.ModelViewSet):
     """API для заявок"""
 
-    queryset = Request.objects.all()
+    queryset = Request.objects.all().order_by('id')
     serializer_class = RequestSerializer
 
     def get_queryset(self):
@@ -71,5 +71,5 @@ class RequestViewSet(viewsets.ModelViewSet):
 class RequestTypeViewSet(viewsets.ModelViewSet):
     """API для типов заявки"""
 
-    queryset = RequestType.objects.all()
+    queryset = RequestType.objects.all().order_by('id')
     serializer_class = RequestTypeSerializer

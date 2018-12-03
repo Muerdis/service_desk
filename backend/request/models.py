@@ -1,6 +1,8 @@
 from django.db import models
 from djchoices import DjangoChoices, ChoiceItem
 
+from device.models import DeviceTemplate
+
 
 class RequestReason(models.Model):
     """Причина заявки"""
@@ -77,6 +79,11 @@ class Request(models.Model):
         verbose_name='Статус',
         choices=RequestStatuses.choices,
         default=RequestStatuses.NEW
+    )
+
+    device_templates = models.ManyToManyField(
+        DeviceTemplate,
+        verbose_name='Необходимое оборудование',
     )
 
     def __str__(self):

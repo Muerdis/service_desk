@@ -19,8 +19,8 @@ class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = (
-            'id', 'title', 'text', 'date_created', 'status', 'request_reason', 'reason_type_name',
-            'reason_name', 'assigned_user', 'created_user', 'created_user_name', 'assigned_user_name'
+            'id', 'title', 'text', 'date_created', 'status', 'request_reason', 'reason_type_name', 'reason_name',
+            'assigned_user', 'created_user', 'created_user_name', 'assigned_user_name', 'device_templates'
         )
 
 

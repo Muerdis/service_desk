@@ -51,7 +51,20 @@
                   label="Ответственный *"
                   required
                 )
-        v-card-actions
+              v-flex(xs12)
+                v-select(
+                  v-model="selectedDeviceTemplates"
+                  :items="deviceTemplates"
+                  item-value="id"
+                  item-text="name"
+                  label="Необходимое оборудование"
+                )
+                  template(slot="item" slot-scope="data")
+                    v-tooltip(right)
+                      span(slot="activator") {{ data.item.name }}
+                      v-flex
+                        p Характеристики
+                        p(v-for="param in data.item.params") {{ param.name }}: {{ param.value }}
           v-spacer
           v-btn(color="blue darken-1" flat @click="clearForm") Закрыть
           v-btn(color="blue darken-1" flat @click="createRequest") Готово
@@ -77,12 +90,14 @@ export default {
       requestType: null,
       requestReason: null,
       assignedUser: null,
+      selectedDeviceTemplates: [],
     };
   },
   mounted() {
     this.$store.dispatch('request/getRequestTypes');
     this.$store.dispatch('request/getRequestReasons');
     this.$store.dispatch('user/getUsers');
+    this.$store.dispatch('device/getDeviceTemplates');
   },
   computed: {
     ...mapGetters({
@@ -91,6 +106,7 @@ export default {
       requestReasons: 'request/requestReasons',
       user: 'user/user',
       users: 'user/users',
+      deviceTemplates: 'device/deviceTemplates',
     }),
     requestsCreated() {
       return this.requests.filter(request => request.created_user === this.user.id);

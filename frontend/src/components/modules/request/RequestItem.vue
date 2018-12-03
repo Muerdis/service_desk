@@ -6,6 +6,8 @@
         p Тип: {{ request.reason_type_name }}
         p Причина: {{ request.reason_name }}
         p Назначена на: {{ request.assigned_user_name }}
+        span Необходимое оборудование:&nbsp;
+        span(v-for="name in request.device_templates_names") {{ name }},&nbsp;
         hr
         p {{ request.text }}
         p.faded-text {{ request.created_user_name }}

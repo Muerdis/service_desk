@@ -25,7 +25,7 @@
                 )
               v-flex(xs12 sm6)
                 v-select(
-                  autocomplete="true"
+                  :autocomplete="true"
                   @change="requestReason = null"
                   v-model="requestType"
                   :items="requestTypes"
@@ -36,7 +36,7 @@
                 )
               v-flex(xs12 sm6)
                 v-select(
-                  autocomplete="true"
+                  :autocomplete="true"
                   v-model="requestReason"
                   :items="allowedReasons"
                   item-value="id"
@@ -46,7 +46,7 @@
                 )
               v-flex(xs12)
                 v-select(
-                  autocomplete="true"
+                  :autocomplete="true"
                   v-model="assignedUser"
                   :items="users"
                   item-value="id"
@@ -56,7 +56,8 @@
                 )
               v-flex(xs12)
                 v-select(
-                  autocomplete="true"
+                  :multiple="true"
+                  :autocomplete="true"
                   v-model="selectedDeviceTemplates"
                   :items="deviceTemplates"
                   item-value="id"
@@ -137,6 +138,7 @@ export default {
         request_reason: this.requestReason,
         assigned_user: this.assignedUser,
         created_user: this.user.id,
+        device_templates: this.selectedDeviceTemplates,
       };
 
       this.$store.dispatch('request/createRequest', info);

@@ -4,7 +4,11 @@ const http = axios.create();
 
 const api = axios.create({
   headers: {
-    'X-CSRFToken': 'ZajyhyQJZdsC5zBfAyCenEfqzQypoB71UDyBQTMyf63uwSG20aK8wU1RAbRZy2mH',
+    Authorization: `JWT ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
+  },
+  xhrFields: {
+    withCredentials: true,
   },
   baseURL: 'http://localhost:8000/api/',
 });

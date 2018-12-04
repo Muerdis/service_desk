@@ -22,7 +22,7 @@ export default {
   computed: {
     ...mapGetters({
       requests: 'request/requests',
-      user: 'user/user',
+      user: 'auth/authUser',
     }),
     requestsClosed() {
       return this.requests.filter(

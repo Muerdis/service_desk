@@ -37,7 +37,7 @@ export default {
   computed: {
     ...mapGetters({
       requests: 'request/requests',
-      user: 'user/user',
+      user: 'auth/authUser',
     }),
     requestsNew() {
       return this.requests.filter(

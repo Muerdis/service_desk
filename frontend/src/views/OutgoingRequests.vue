@@ -109,7 +109,7 @@ export default {
       requests: 'request/requests',
       requestTypes: 'request/requestTypes',
       requestReasons: 'request/requestReasons',
-      user: 'user/user',
+      user: 'auth/authUser',
       users: 'user/users',
       deviceTemplates: 'device/deviceTemplates',
     }),

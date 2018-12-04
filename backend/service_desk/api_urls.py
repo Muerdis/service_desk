@@ -15,9 +15,9 @@ router.register(r'device-templates', DeviceTemplateViewSet, base_name='device-te
 
 urlpatterns = [
     url(
-        r'^user',
+        r'^auth-user',
         AuthenticatedUserViewSet.as_view(),
-        name='user'
+        name='auth-user'
     ),
 ]
 

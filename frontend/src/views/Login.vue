@@ -70,14 +70,14 @@ export default {
           const axiosInstance = axios.create(base);
 
           axiosInstance({
-            url: 'user/',
+            url: 'auth-user/',
             method: 'get',
             params: {},
           })
             .then((userResponse) => {
               this.$store.commit('auth/AUTH_USER', userResponse.data);
               this.$store.commit('auth/IS_AUTHENTICATED', true);
-              this.$router.push({ name: 'Home' });
+              this.$router.push({ name: 'home' });
             });
         });
     },

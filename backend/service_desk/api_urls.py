@@ -8,8 +8,6 @@ from request.views import RequestReasonViewSet, RequestViewSet, \
 from user.views import UserView, UserViewSet
 
 router = routers.DefaultRouter()
-router.register(r'auth/obtain_token', UserViewSet, obtain_jwt_token)
-router.register(r'auth/refresh_token', UserViewSet, refresh_jwt_token)
 router.register(r'users', UserViewSet, base_name='users')
 router.register(r'request-reasons', RequestReasonViewSet, base_name='request-reasons')
 router.register(r'requests', RequestViewSet, base_name='requests')

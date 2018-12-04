@@ -1,11 +1,10 @@
 from django.conf.urls import url, include
 from rest_framework import routers
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 from device.views import DeviceTemplateViewSet
 from request.views import RequestReasonViewSet, RequestViewSet, \
     RequestTypeViewSet
-from user.views import UserView, UserViewSet
+from user.views import UserViewSet, AuthenticatedUserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet, base_name='users')
@@ -16,9 +15,9 @@ router.register(r'device-templates', DeviceTemplateViewSet, base_name='device-te
 
 urlpatterns = [
     url(
-        r'^user-info',
-        UserView.as_view(),
-        name='user-info'
+        r'^user',
+        AuthenticatedUserViewSet.as_view(),
+        name='user'
     ),
 ]
 

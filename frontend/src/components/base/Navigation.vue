@@ -14,6 +14,7 @@
         v-list-tile-content
           v-list-tile-title Новости
       v-list-group(
+        v-if="isAuthenticated"
         v-for="item in items" v-model="item.active"
         :key="item.title" :prepend-icon="item.action" no-action
       )
@@ -62,6 +63,7 @@ export default {
   computed: {
     ...mapGetters({
       stDrawer: 'base/drawer',
+      isAuthenticated: 'auth/isAuthenticated',
     }),
     drawer: {
       get() {

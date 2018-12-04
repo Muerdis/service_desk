@@ -1,30 +1,18 @@
-<template lang="html">
-  <form class="login form">
-    <div class="field">
-      <label for="id_username">Username</label>
-      <input
-        v-model="username"
-        type="text"
-        placeholder="Username"
-        autofocus="autofocus"
-        maxlength="150"
-        id="id_username">
-    </div>
-    <div class="field">
-      <label for="id_password">Password</label>
-      <input
-        v-model="password"
-        type="password"
-        placeholder="Password"
-        id="id_password">
-    </div>
-    <button
-      @click.prevent="authenticate"
-      class="button primary"
-      type="submit">
-      Log In
-    </button>
-  </form>
+<template lang="pug">
+  v-dialog(v-model="dialog" persistent max-width="300px")
+    v-card
+      v-card-text
+        v-container
+          v-layout(wrap)
+            v-flex(xs12)
+              v-text-field(v-model="username" label="Логин *" required)
+            v-flex(xs12)
+              v-text-field(v-model="password" label="Пароль *" required type="password")
+      v-card-actions
+        v-spacer
+        v-btn(
+          color="blue darken-1" flat @click="authenticate"
+        ) Войти
 </template>
 
 <script>
@@ -33,9 +21,15 @@ import axios from 'axios';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'Login',
+  name: 'LoginForm',
+  props: {
+    dialogState: {
+      type: Boolean,
+    },
+  },
   data() {
     return {
+      dialog: this.dialogState,
       username: '',
       password: '',
     };
@@ -47,6 +41,12 @@ export default {
     }),
   },
   methods: {
+    clearForm() {
+      this.dialog = false;
+      this.username = '';
+      this.password = '';
+      this.$emit('closeAction');
+    },
     authenticate() {
       const payload = {
         username: this.username,
@@ -77,7 +77,8 @@ export default {
             .then((userResponse) => {
               this.$store.commit('auth/AUTH_USER', userResponse.data);
               this.$store.commit('auth/IS_AUTHENTICATED', true);
-              this.$router.push({ name: 'home' });
+              this.$store.dispatch('request/getRequests');
+              this.clearForm();
             });
         });
     },

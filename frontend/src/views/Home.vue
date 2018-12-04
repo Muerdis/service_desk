@@ -4,28 +4,28 @@
     v-content
       v-container(grid-list-md)
         v-layout(row wrap)
-          v-flex(xs3 text-xs-center)
+          v-flex(v-if="isAuthenticated" xs3 text-xs-center)
             request-count-card(
               color="red darken-1"
               title="Входящие заявки"
               :count="`${requestsNew.length}`"
               link="/incoming-requests"
               icon="arrow_downward")
-          v-flex(xs3 text-xs-center)
+          v-flex(v-if="isAuthenticated" xs3 text-xs-center)
             request-count-card(
               color="light-blue lighten-1"
               title="Исходящие заявки"
               :count="`${requestsCreated.length}`"
               link="/outgoing-requests"
               icon="arrow_upward")
-          v-flex(xs3 text-xs-center)
+          v-flex(v-if="isAuthenticated" xs3 text-xs-center)
             request-count-card(
               color="orange lighten-1"
               title="В работе"
               :count="`${requestsInWork.length}`"
               link="/in-work-requests"
               icon="update")
-          v-flex(xs3 text-xs-center)
+          v-flex(v-if="isAuthenticated" xs3 text-xs-center)
             request-count-card(
               color="green lighten-1"
               title="Выполнено"
@@ -56,6 +56,7 @@ export default {
     ...mapGetters({
       requests: 'request/requests',
       user: 'auth/authUser',
+      isAuthenticated: 'auth/isAuthenticated',
     }),
     requestsNew() {
       return this.requests.filter(

@@ -1,6 +1,6 @@
 <template lang="pug">
-  v-navigation-drawer(v-model="drawer" fixed app width="300")
-    v-avatar(:tile="false" size="200"  color="grey lighten-4" style="margin-left: 50px;")
+  v-navigation-drawer(v-model="drawer" fixed app width="340")
+    v-avatar(:tile="false" size="200"  color="grey lighten-4" style="margin-left: 70px;")
       img(src="@/assets/logo.png" alt="avatar")
     v-list(dense)
       v-list-tile(to="/")
@@ -55,6 +55,16 @@ export default {
           items: [
             { title: 'Шаблоны оборудования', to: '/device-templates' },
             { title: 'Список оборудования', to: '/devices' },
+          ],
+        },
+        {
+          action: 'calendar_today',
+          title: 'Календарные графики',
+          active: true,
+          items: [
+            { title: 'Мероприятий', to: '#' },
+            { title: 'Использования оборудования', to: '#' },
+            { title: 'Обслуживания оборудования', to: '#' },
           ],
         },
       ],

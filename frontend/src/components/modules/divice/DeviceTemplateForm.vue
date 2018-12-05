@@ -17,9 +17,9 @@
               v-text-field(v-model="templateName" label="Название *" required)
             v-layout(wrap v-for="(param, index) in parameters")
               v-flex(xs12 sm5)
-                v-text-field(v-model="param.name" label="Характеристика")
+                v-textarea(rows="1" v-model="param.name" label="Характеристика")
               v-flex(xs12 sm6)
-                v-text-field(v-model="param.value" label="Значение")
+                v-textarea(rows="1" v-model="param.value" label="Значение")
               v-flex(xs12 sm1)
                 v-btn(fab dark small color="error" @click="removeParameter(index)")
                   v-icon(dark ) remove

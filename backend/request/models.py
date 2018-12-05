@@ -50,7 +50,7 @@ class Request(models.Model):
         default=''
     )
     text = models.CharField(
-        max_length=200,
+        max_length=500,
         verbose_name='Текст',
         default=''
     )

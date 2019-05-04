@@ -1,5 +1,6 @@
 import datetime
 
+from django.db.models import Q
 from rest_framework import viewsets
 
 from request.models import RequestReason, Request, RequestType
@@ -33,7 +34,9 @@ class RequestViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         dj_request = self.request
         params = dj_request.query_params
-        queryset = Request.objects.all()
+        queryset = Request.objects.filter(
+            Q(assigned_user=dj_request.user) | Q(created_user=dj_request.user)
+        )
 
         if params.get('reason'):
             reason = params.get('reason')

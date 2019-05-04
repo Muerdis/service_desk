@@ -27,7 +27,7 @@ class Device(models.Model):
     inventory_number = models.CharField(
         max_length=50,
         verbose_name='Инвентарный номер',
-        default=''
+        unique=True
     )
     device_template = models.ForeignKey(
         'device.DeviceTemplate',

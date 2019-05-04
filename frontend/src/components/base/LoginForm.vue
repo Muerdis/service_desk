@@ -4,12 +4,24 @@
       v-card-text
         v-container
           v-layout(wrap)
+            v-flex(xs12 v-if="respError")
+              span.response-error Введите верные логин и пароль
             v-flex(xs12)
-              v-text-field(v-model="username" label="Логин *" required)
+              v-text-field(
+                ref="username" v-model="username" label="Логин *" required @change="removeRespError"
+              )
             v-flex(xs12)
-              v-text-field(v-model="password" label="Пароль *" required type="password")
+              v-text-field(
+                ref="password" v-model="password" label="Пароль *" required type="password"
+                :append-icon="showPass ? 'visibility' : 'visibility_off'"
+                :type="showPass ? 'text' : 'password'" :rules="[rules.required,]"
+                @change="removeRespError" @click:append="showPass = !showPass"
+              )
       v-card-actions
         v-spacer
+        v-btn(
+          color="blue darken-1" flat @click="clearForm"
+        ) Закрыть
         v-btn(
           color="blue darken-1" flat @click="authenticate"
         ) Войти
@@ -17,8 +29,11 @@
 
 <script>
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import { mapGetters } from 'vuex';
+
+import requests from '../../utils/http';
 
 export default {
   name: 'LoginForm',
@@ -32,6 +47,11 @@ export default {
       dialog: this.dialogState,
       username: '',
       password: '',
+      showPass: false,
+      rules: {
+        required: value => !!value || 'Поле обязательно для заполнения.',
+      },
+      respError: false,
     };
   },
   computed: {
@@ -39,8 +59,17 @@ export default {
       jwt: 'auth/jwt',
       endpoints: 'auth/endpoints',
     }),
+    form() {
+      return {
+        username: this.username,
+        password: this.password,
+      };
+    },
   },
   methods: {
+    removeRespError() {
+      this.respError = false;
+    },
     clearForm() {
       this.dialog = false;
       this.username = '';
@@ -48,44 +77,61 @@ export default {
       this.$emit('closeAction');
     },
     authenticate() {
-      const payload = {
-        username: this.username,
-        password: this.password,
-      };
-      axios.post(this.endpoints.obtainJWT, payload)
-        .then((response) => {
-          this.$store.commit('auth/UPDATE_TOKEN', response.data.token);
+      let hasErrors = false;
 
-          const base = {
-            baseURL: this.endpoints.baseUrl,
-            headers: {
-              Authorization: `JWT ${this.jwt}`,
-              'Content-Type': 'application/json',
-            },
-            xhrFields: {
-              withCredentials: true,
-            },
-          };
+      Object.keys(this.form).forEach((field) => {
+        if (!this.form[field]) {
+          hasErrors = true;
+        }
 
-          const axiosInstance = axios.create(base);
+        this.$refs[field].validate(true);
+      });
 
-          axiosInstance({
-            url: 'auth-user/',
-            method: 'get',
-            params: {},
+      if (!hasErrors) {
+        const payload = {
+          username: this.username,
+          password: this.password,
+        };
+        requests.internal.post('auth/obtain_token/', payload)
+          .then((response) => {
+            this.$store.commit('auth/UPDATE_TOKEN', response.data.token);
+
+            const base = {
+              baseURL: 'http://localhost:8000/api/',
+              headers: {
+                Authorization: `JWT ${Cookies.get('csrftoken')}`,
+                'Content-Type': 'application/json',
+              },
+              xhrFields: {
+                withCredentials: true,
+              },
+            };
+
+            const axiosInstance = axios.create(base);
+
+            axiosInstance({
+              url: 'auth-user/',
+              method: 'get',
+              params: {},
+            })
+              .then((userResponse) => {
+                this.$store.commit('auth/AUTH_USER', userResponse.data);
+                this.$store.commit('auth/IS_AUTHENTICATED', true);
+                this.$store.dispatch('request/getRequests');
+                this.clearForm();
+              });
           })
-            .then((userResponse) => {
-              this.$store.commit('auth/AUTH_USER', userResponse.data);
-              this.$store.commit('auth/IS_AUTHENTICATED', true);
-              this.$store.dispatch('request/getRequests');
-              this.clearForm();
-            });
-        });
+          .catch(() => {
+            this.respError = true;
+          });
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-
+ .response-error {
+   color: #ff5252
+ }
 </style>

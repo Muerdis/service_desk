@@ -1,10 +1,13 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const http = axios.create();
-
+const internal = axios.create({
+  baseURL: 'http://localhost:8000/',
+});
 const api = axios.create({
   headers: {
-    Authorization: `JWT ${localStorage.getItem('token')}`,
+    Authorization: `JWT ${Cookies.get('csrftoken')}`,
     'Content-Type': 'application/json',
   },
   xhrFields: {
@@ -15,5 +18,6 @@ const api = axios.create({
 
 export default {
   http,
+  internal,
   api,
 };

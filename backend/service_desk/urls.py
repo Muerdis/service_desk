@@ -5,8 +5,9 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from service_desk import api_urls
 
 urlpatterns = [
-    path('auth/obtain_token/', obtain_jwt_token),
-    path('auth/refresh_token/', refresh_jwt_token),
+    path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('api/', include(api_urls)),
+    path('auth/obtain_token/', obtain_jwt_token),
+    path('auth/refresh_token/', refresh_jwt_token),
 ]

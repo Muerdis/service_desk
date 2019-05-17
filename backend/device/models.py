@@ -1,5 +1,6 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class DeviceTemplate(models.Model):
@@ -14,6 +15,10 @@ class DeviceTemplate(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('Шаблон оборудования')
+        verbose_name_plural = _('Шаблоны оборудования')
 
 
 class Device(models.Model):
@@ -38,3 +43,35 @@ class Device(models.Model):
 
     def __str__(self):
         return self.inventory_number
+
+    class Meta:
+        verbose_name = _('Оборудование')
+        verbose_name_plural = _('Оборудование')
+
+
+class Reservation(models.Model):
+    """Бронирование/обслуживание"""
+
+    device = models.ForeignKey(
+        'device.Device',
+        verbose_name='Оборудование',
+        related_name='device_reservations',
+        on_delete=models.CASCADE,
+    )
+    request = models.ForeignKey(
+        'request.Request',
+        verbose_name='Заявка',
+        related_name='request_reservations',
+        on_delete=models.CASCADE,
+        blank=True, null=True
+    )
+    from_date = models.DateField(
+        verbose_name='Дата начала бронирования/обслуживания'
+    )
+    to_date = models.DateField(
+        verbose_name='Дата окончания бронирования/обслуживания'
+    )
+
+    class Meta:
+        verbose_name = _('Бронирование/обслуживание')
+        verbose_name_plural = _('Бронирование/обслуживание')

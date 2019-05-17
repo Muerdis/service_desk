@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from user.validators import validate_phone
 
@@ -46,6 +47,10 @@ class User(AbstractUser):
     def __str__(self):
         return self.get_full_name()
 
+    class Meta:
+        verbose_name = _('Пользователь')
+        verbose_name_plural = _('Пользователи')
+
 
 class Department(models.Model):
     """Отдел"""
@@ -57,3 +62,7 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('Отдел')
+        verbose_name_plural = _('Отделы')

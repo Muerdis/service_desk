@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class News(models.Model):
@@ -9,7 +10,7 @@ class News(models.Model):
         verbose_name='Заголовок',
     )
     content = models.CharField(
-        max_length=1000,
+        max_length=5000,
         verbose_name='Контент',
     )
     date_created = models.DateTimeField(
@@ -25,20 +26,22 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = _('Новость')
+        verbose_name_plural = _('Новости')
+
 
 class Comment(models.Model):
     """Комментарий"""
 
     text = models.CharField(
         max_length=100,
-        verbose_name='Заголовок',
+        verbose_name='Текст',
     )
     news = models.ForeignKey(
         'news.News',
         verbose_name='Новость',
-        on_delete=models.CASCADE,
-        blank=False,
-        null=False
+        on_delete=models.CASCADE
     )
     date_created = models.DateTimeField(
         auto_now_add=True,
@@ -48,6 +51,7 @@ class Comment(models.Model):
         'user.User',
         verbose_name='Создатель комментария',
         on_delete=models.CASCADE,
+        related_name='news_comments'
     )
 
     def __str__(self):
@@ -56,3 +60,7 @@ class Comment(models.Model):
             self.created_user.get_full_name(),
             self.date_created
         )
+
+    class Meta:
+        verbose_name = _('Комментарий')
+        verbose_name_plural = _('Комментарии')

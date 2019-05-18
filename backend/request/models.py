@@ -10,7 +10,8 @@ class RequestReason(models.Model):
 
     text = models.CharField(
         max_length=200,
-        verbose_name='Название',
+        verbose_name='Текст',
+        unique=True
     )
     request_type = models.ForeignKey(
         'request.RequestType',
@@ -32,6 +33,7 @@ class RequestType(models.Model):
     name = models.CharField(
         max_length=200,
         verbose_name='Название',
+        unique=True
     )
 
     def __str__(self):

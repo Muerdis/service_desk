@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from device.models import DeviceTemplate, Device
+from device.models import DeviceTemplate, Device, Reservation
 
 
 class DeviceTemplateSerializer(serializers.ModelSerializer):
@@ -33,4 +33,12 @@ class DeviceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Device
+        fields = '__all__'
+
+
+class ReservationSerializer(serializers.ModelSerializer):
+    """Сериализатор для обслуживания/бронирования"""
+
+    class Meta:
+        model = Reservation
         fields = '__all__'

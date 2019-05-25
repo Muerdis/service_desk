@@ -2,8 +2,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from user.models import User
-from user.serializers import UserSerializer
+from user.models import User, Department
+from user.serializers import UserSerializer, DepartmentSerializer
 
 
 class AuthenticatedUserViewSet(APIView):
@@ -18,7 +18,14 @@ class AuthenticatedUserViewSet(APIView):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """API для типов заявки"""
+    """API для пользователей"""
 
     queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
+
+
+class DepartmentViewSet(viewsets.ModelViewSet):
+    """API для отделов"""
+
+    queryset = Department.objects.all().order_by('id')
+    serializer_class = DepartmentSerializer

@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from device.models import DeviceTemplate, Device
-from device.serializers import DeviceTemplateSerializer, DeviceSerializer
+from device.models import DeviceTemplate, Device, Reservation
+from device.serializers import DeviceTemplateSerializer, DeviceSerializer, ReservationSerializer
 
 
 class DeviceTemplateViewSet(viewsets.ModelViewSet):
@@ -16,3 +16,11 @@ class DeviceViewSet(viewsets.ModelViewSet):
 
     queryset = Device.objects.all().order_by('id')
     serializer_class = DeviceSerializer
+
+
+class ReservationViewSet(viewsets.ModelViewSet):
+    """API для обслуживания/бронирования"""
+
+    queryset = Reservation.objects.all().order_by('id')
+    serializer_class = ReservationSerializer
+

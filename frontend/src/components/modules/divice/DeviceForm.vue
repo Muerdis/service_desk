@@ -18,8 +18,7 @@
             v-flex(xs12)
               v-text-field(v-model="deviceNum" label="Инвентарный номер *" required)
             v-flex(xs12)
-                v-select(
-                  :autocomplete="true"
+                v-autocomplete(
                   v-model="deviceTemplate"
                   :items="deviceTemplates"
                   item-value="id"

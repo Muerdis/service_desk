@@ -24,8 +24,7 @@
                   hint="Опишите проблему как можно более подробно"
                 )
               v-flex(xs12 sm6)
-                v-select(
-                  :autocomplete="true"
+                v-autocomplete(
                   @change="requestReason = null"
                   v-model="requestType"
                   :items="requestTypes"
@@ -35,8 +34,7 @@
                   required
                 )
               v-flex(xs12 sm6)
-                v-select(
-                  :autocomplete="true"
+                v-autocomplete(
                   v-model="requestReason"
                   :items="allowedReasons"
                   item-value="id"
@@ -45,8 +43,7 @@
                   required
                 )
               v-flex(xs12)
-                v-select(
-                  :autocomplete="true"
+                v-autocomplete(
                   v-model="assignedUser"
                   :items="users"
                   item-value="id"
@@ -55,9 +52,8 @@
                   required
                 )
               v-flex(xs12)
-                v-select(
+                v-autocomplete(
                   :multiple="true"
-                  :autocomplete="true"
                   v-model="selectedDeviceTemplates"
                   :items="deviceTemplates"
                   item-value="id"

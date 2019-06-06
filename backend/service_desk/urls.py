@@ -9,6 +9,8 @@ from service_desk import api_urls
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('summernote/', include('django_summernote.urls')),
+    path('accounts/', include('django_registration.backends.activation.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(api_urls)),
     path('auth/obtain_token/', obtain_jwt_token),

@@ -96,6 +96,11 @@ class Invite(models.Model):
         auto_now_add=True,
         verbose_name='Дата и время приглашения'
     )
+    code = models.CharField(
+        max_length=32,
+        verbose_name='Код приглашения',
+        unique=True
+    )
 
     def __str__(self):
         return self.invite_to.email

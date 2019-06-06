@@ -41,9 +41,9 @@ class User(AbstractUser):
 
     def get_full_name(self):
         return '{0}{1}{2}'.format(
-            '%s ' % self.last_name or '',
-            '%s ' % self.first_name or '',
-            '%s' % self.middle_name or ''
+            '%s ' % self.last_name if self.last_name else '',
+            '%s ' % self.first_name if self.first_name else '',
+            '%s' % self.middle_name if self.middle_name else ''
         )
 
     def __str__(self):

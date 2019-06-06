@@ -72,6 +72,9 @@ class Reservation(models.Model):
         verbose_name='Дата окончания бронирования/обслуживания'
     )
 
+    def __str__(self):
+        return '{} {} {}'.format(self.request.id, self.device.name, self.device.inventory_number)
+
     class Meta:
         verbose_name = _('Бронирование/обслуживание')
         verbose_name_plural = _('Бронирование/обслуживание')

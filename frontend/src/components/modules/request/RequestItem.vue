@@ -27,13 +27,13 @@
         v-btn.request-action(@click="changeStatus(3)" color="success")
           v-flex
             span Завершить
-        v-dialog(v-model="deviceDialog" persistent max-width="600px")
+        v-dialog(v-model="deviceDialog" persistent max-width="700px")
           v-btn.request-action(slot="activator" color="info")
             v-flex
-              span Оборудование
+              span Бронирование
           v-card
             v-card-title
-              span.headline.text-center(style="width: 100%;") Оборудование
+              span.headline.text-center(style="width: 100%;") Бронирование
             v-card-text
               v-container(grid-list-md)
                 v-layout(wrap)
@@ -41,30 +41,31 @@
                     v-autocomplete(
                       :multiple="true"
                       v-model="selectedDevices"
-                      :items="[]"
+                      :items="devices"
                       item-value="id"
                       item-text="name"
-                      label="Прикрепленное оборудование"
+                      label="Единицы оборудования"
+                    )
+                  v-flex(xs12 sm6)
+                    v-date-picker(
+                      v-model="dateFrom"
+                      locale="ru-ru"
+                      first-day-of-week="1"
+                    )
+                  v-flex.hidden-xs-only(xs12 sm6)
+                    v-date-picker(
+                      v-model="dateTo"
+                      locale="ru-ru"
+                      first-day-of-week="1"
                     )
               v-spacer
-                v-btn(color="blue darken-1" flat @click="clearDeviceForm") Закрыть
-        v-dialog(v-model="dateDialog" persistent max-width="600px")
-          v-btn(slot="activator" color="info")
-            v-flex
-              span Сроки
-          v-card
-            v-card-title
-              span.headline.text-center(style="width: 100%;") Сроки
-            v-card-text
-              v-container(grid-list-md)
-                v-layout(wrap)
-                  v-flex(xs12)
-                    span afsdfsdfsdf
-              v-spacer
-                v-btn(color="blue darken-1" flat @click="clearDateForm") Закрыть
+                v-btn(color="blue darken-1" flat @click="createReservations") Готово
+                v-btn(color="blue darken-1" flat @click="clearDeviceForm" right) Закрыть
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'RequestItem',
   props: {
@@ -78,16 +79,23 @@ export default {
   data() {
     return {
       deviceDialog: false,
-      dateDialog: false,
       selectedDevices: [],
+      dateFrom: new Date().toISOString().substr(0, 10),
+      dateTo: new Date().toISOString().substr(0, 10)
     };
+  },
+  mounted() {
+    this.$store.dispatch('device/getDevices');
+  },
+  computed: {
+    ...mapGetters({
+      devices: 'device/devices',
+    }),
   },
   methods: {
     clearDeviceForm() {
+      this.selectedDevices = [];
       this.deviceDialog = false;
-    },
-    clearDateForm() {
-      this.dateDialog = false;
     },
     changeStatus(status) {
       const info = {
@@ -98,6 +106,23 @@ export default {
     },
     deleteRequest() {
       this.$store.dispatch('request/deleteRequest', this.request.id);
+    },
+    createReservations() {
+      const state = this;
+      this.selectedDevices.forEach(function(device) {
+        const info = {
+          request: state.request.id,
+          from_date: state.dateFrom,
+          to_date: state.dateTo,
+          device: device,
+        };
+
+        state.$store.dispatch('request/createReservation', info);
+      });
+
+      state.changeStatus(3);
+      this.selectedDevices = [];
+      this.deviceDialog = false;
     },
   },
 };

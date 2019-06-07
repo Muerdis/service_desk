@@ -51,6 +51,14 @@ async function createRequest(context, info) {
   getRequests(context);
 }
 
+async function createReservation(context, info) {
+  const createUrl = '/reservations/';
+  const createPromise = requests.api.post(createUrl, info);
+  await Promise.resolve(createPromise);
+
+  getRequests(context);
+}
+
 export default {
   getRequests,
   changeStatus,
@@ -58,4 +66,5 @@ export default {
   getRequestTypes,
   getRequestReasons,
   createRequest,
+  createReservation,
 };

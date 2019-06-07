@@ -8,11 +8,16 @@
           v-icon home
         v-list-tile-content
           v-list-tile-title Главная
-      v-list-tile(@click="")
+      v-list-tile(to="/news")
         v-list-tile-action
           v-icon vertical_split
         v-list-tile-content
           v-list-tile-title Новости
+      v-list-tile(to="/events")
+        v-list-tile-action
+          v-icon vertical_split
+        v-list-tile-content
+          v-list-tile-title Мероприятия
       v-list-group(
         v-if="isAuthenticated"
         v-for="item in items" v-model="item.active"

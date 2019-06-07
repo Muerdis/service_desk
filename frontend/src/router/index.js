@@ -63,5 +63,10 @@ export default new Router({
       name: 'serviceCal',
       component: () => import('../views/ServiceCal.vue'),
     },
+    {
+      path: '/news',
+      name: 'news',
+      component: () => import('../views/News.vue'),
+    },
   ],
 });

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const http = axios.create();
 const internal = axios.create({
-  baseURL: 'http://localhost:8000/',
+  baseURL: 'http://0.0.0.0:8000/',
 });
 const api = axios.create({
   headers: {
@@ -13,7 +13,7 @@ const api = axios.create({
   xhrFields: {
     withCredentials: true,
   },
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: 'http://0.0.0.0:8000/api/',
 });
 
 export default {

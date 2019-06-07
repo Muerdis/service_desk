@@ -68,5 +68,10 @@ export default new Router({
       name: 'news',
       component: () => import('../views/News.vue'),
     },
+    {
+      path: '/events',
+      name: 'events',
+      component: () => import('../views/Events.vue'),
+    },
   ],
 });

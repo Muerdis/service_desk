@@ -7,6 +7,7 @@ import request from './modules/request';
 import user from './modules/user';
 import device from './modules/device';
 import news from './modules/news';
+import events from './modules/events';
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     user,
     device,
     news,
+    events,
   },
 });

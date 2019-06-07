@@ -19,6 +19,7 @@ export default {
           this.$store.commit('auth/IS_AUTHENTICATED', true);
           this.$store.dispatch('request/getRequests');
           this.$store.dispatch('news/getNews');
+          this.$store.dispatch('events/getEvents');
           this.clearForm();
         });
     }

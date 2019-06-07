@@ -48,5 +48,20 @@ export default new Router({
       name: 'devices',
       component: () => import('../views/Devices.vue'),
     },
+    {
+      path: '/events-calendar',
+      name: 'eventsCal',
+      component: () => import('../views/EventsCal.vue'),
+    },
+    {
+      path: '/usings-calendar',
+      name: 'usingsCal',
+      component: () => import('../views/UsingsCal.vue'),
+    },
+    {
+      path: '/service-calendar',
+      name: 'serviceCal',
+      component: () => import('../views/ServiceCal.vue'),
+    },
   ],
 });

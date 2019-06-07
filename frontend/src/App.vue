@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import requests from './utils/http';
 import Cookies from 'js-cookie';
+import requests from './utils/http';
 
 export default {
   name: 'App',
@@ -18,6 +18,7 @@ export default {
           this.$store.commit('auth/AUTH_USER', userResponse.data);
           this.$store.commit('auth/IS_AUTHENTICATED', true);
           this.$store.dispatch('request/getRequests');
+          this.$store.dispatch('news/getNews');
           this.clearForm();
         });
     }

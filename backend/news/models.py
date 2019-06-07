@@ -9,6 +9,7 @@ class News(models.Model):
         max_length=100,
         verbose_name='Заголовок',
     )
+
     content = models.TextField(
         max_length=20000,
         verbose_name='Контент',

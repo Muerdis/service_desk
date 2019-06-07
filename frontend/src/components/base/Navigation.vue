@@ -62,9 +62,9 @@ export default {
           title: 'Календарные графики',
           active: true,
           items: [
-            { title: 'Мероприятий', to: '#' },
-            { title: 'Использования оборудования', to: '#' },
-            { title: 'Обслуживания оборудования', to: '#' },
+            { title: 'Мероприятий', to: '/events-calendar' },
+            { title: 'Использования оборудования', to: '/usings-calendar' },
+            { title: 'Обслуживания оборудования', to: '/service-calendar' },
           ],
         },
       ],

@@ -97,7 +97,7 @@ export default {
             this.$store.commit('auth/UPDATE_TOKEN', response.data.token);
 
             const base = {
-              baseURL: 'http://localhost:8000/api/',
+              baseURL: 'http://139.162.128.213:8000/api/',
               headers: {
                 Authorization: `JWT ${Cookies.get('csrftoken')}`,
                 'Content-Type': 'application/json',

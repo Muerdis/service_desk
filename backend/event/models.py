@@ -13,6 +13,10 @@ class Event(models.Model):
         max_length=20000,
         verbose_name='Контент',
     )
+    preview_text = models.TextField(
+        max_length=5000,
+        verbose_name='Текст для главной превью',
+    )
     date_created = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата и время создания'

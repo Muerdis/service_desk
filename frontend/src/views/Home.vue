@@ -32,12 +32,6 @@
               :count="`${requestsClosed.length}`"
               link="/completed-requests"
               icon="done")
-          v-flex(xs6)
-            v-card(dark color="white")
-              v-icon(style="font-size: 50px;" light) info
-          v-flex(xs6)
-            v-card(dark color="white")
-              v-card-text.px-0 6
 </template>
 
 <script>

@@ -91,10 +91,10 @@ class Request(models.Model):
         choices=RequestStatuses.choices,
         default=RequestStatuses.NEW
     )
-
     device_templates = models.ManyToManyField(
         DeviceTemplate,
         verbose_name='Необходимое оборудование',
+        blank=True, null=True
     )
 
     def __str__(self):

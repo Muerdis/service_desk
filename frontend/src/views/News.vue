@@ -6,7 +6,7 @@
         v-layout(row wrap)
           v-flex(xs12)
             v-card.news-card(v-for="item in news")
-              v-card-title(primary-title style="padding-bottom: 0px;")
+              v-card-title(primary-title)
                 h2 {{ item.title }}
                 span(v-html="item.preview_text")
                 router-link(:to="getRoute(item.id)") Подробнее

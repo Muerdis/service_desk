@@ -48,12 +48,14 @@
                     )
                   v-flex(xs12 sm6)
                     v-date-picker(
+                      :allowed-dates="allowedFromDates"
                       v-model="dateFrom"
                       locale="ru-ru"
                       first-day-of-week="1"
                     )
                   v-flex.hidden-xs-only(xs12 sm6)
                     v-date-picker(
+                      :allowed-dates="allowedToDates"
                       v-model="dateTo"
                       locale="ru-ru"
                       first-day-of-week="1"
@@ -123,6 +125,21 @@ export default {
       state.changeStatus(3);
       this.selectedDevices = [];
       this.deviceDialog = false;
+    },
+    allowedFromDates: function (val) {
+      this.selectedDevices.forEach((el) => {
+        const device = this.devices.filter(item => item.id === el);
+
+        if (device) {
+          device[0].res_dates.forEach((el) => {
+            return val < el[0] && val > el[1];
+          });
+        }
+      });
+      return val <= this.dateTo;
+    },
+    allowedToDates(val) {
+      return val >= this.dateFrom;
     },
   },
 };

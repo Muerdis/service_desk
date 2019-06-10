@@ -14,6 +14,7 @@ class DeviceTemplateSerializer(serializers.ModelSerializer):
 
 class DeviceSerializer(serializers.ModelSerializer):
     """Сериализатор для оборудования"""
+    res_dates = serializers.SerializerMethodField()
 
     def validate(self, data):
         for num_template in settings.NUM_TEMPLATES:
@@ -31,9 +32,13 @@ class DeviceSerializer(serializers.ModelSerializer):
 
         return data
 
+    @staticmethod
+    def get_res_dates(data):
+        return data.device_reservations.values_list('from_date', 'to_date')
+
     class Meta:
         model = Device
-        fields = '__all__'
+        fields = ('id', 'name', 'inventory_number', 'device_template', 'res_dates')
 
 
 class ReservationSerializer(serializers.ModelSerializer):

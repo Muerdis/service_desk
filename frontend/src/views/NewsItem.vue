@@ -3,13 +3,12 @@
     base-component
     v-content
       v-container(grid-list-md)
-        v-layout(row wrap)
+        v-layout(row wrap v-if="newsItem[0]")
           v-flex(xs12)
-            v-card.news-card(v-for="item in news")
+            v-card
               v-card-title(primary-title style="padding-bottom: 0px;")
-                h2 {{ item.title }}
-                span(v-html="item.preview_text")
-                router-link(:to="getRoute(item.id)") Подробнее
+                h2 {{ newsItem[0].title }}
+                span(v-html="newsItem[0].content")
 </template>
 
 <script>
@@ -26,17 +25,9 @@ export default {
     ...mapGetters({
       news: 'news/news',
     }),
-  },
-  methods: {
-    getRoute(id) {
-      return `/news/${id}`;
-    }
+    newsItem() {
+      return this.news.filter(item => item.id.toString() === this.$route.params.id);
+    },
   },
 };
 </script>
-
-<style scoped>
- .news-card {
-   margin-bottom: 20px;
- }
-</style>

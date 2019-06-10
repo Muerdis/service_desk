@@ -6,4 +6,4 @@ from news.models import News
 
 @admin.register(News)
 class NewsAdmin(SummernoteModelAdmin):
-    summernote_fields = '__all__'
+    summernote_fields = ('content', )

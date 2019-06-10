@@ -6,4 +6,4 @@ from event.models import Event
 
 @admin.register(Event)
 class EventAdmin(SummernoteModelAdmin):
-    summernote_fields = '__all__'
+    summernote_fields = ('content', )

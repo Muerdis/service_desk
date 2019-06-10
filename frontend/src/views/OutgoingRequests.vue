@@ -68,7 +68,7 @@
                         p(v-for="param in data.item.params") {{ param.name }}: {{ param.value }}
           v-spacer
           v-btn(color="blue darken-1" flat @click="clearForm") Закрыть
-          v-btn(color="blue darken-1" flat @click="createRequest") Готово
+          v-btn(color="blue darken-1" flat @click="createRequest" :disabled="disableCreation") Готово
 </template>
 
 <script>
@@ -117,6 +117,9 @@ export default {
         requestReason => requestReason.request_type === this.requestType,
       );
     },
+    disableCreation() {
+      return !(this.title && this.text && this.requestReason && this.assignedUser);
+    }
   },
   methods: {
     clearForm() {

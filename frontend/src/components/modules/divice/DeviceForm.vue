@@ -30,10 +30,12 @@
         v-spacer
         v-btn(color="blue darken-1" flat @click="clearForm") Закрыть
         v-btn(
-          v-if="mode === 'create'" color="blue darken-1" flat @click="createDevice"
+          v-if="mode === 'create'" color="blue darken-1"
+          flat @click="createDevice" :disabled="disableCreation"
         ) Готово
         v-btn(
-          v-if="mode === 'edit'" color="blue darken-1" flat @click="editDevice"
+          v-if="mode === 'edit'" color="blue darken-1"
+          flat @click="editDevice" :disabled="disableCreation"
         ) Сохранить изменения
 </template>
 
@@ -77,6 +79,9 @@ export default {
     ...mapGetters({
       deviceTemplates: 'device/deviceTemplates',
     }),
+    disableCreation() {
+      return !(this.deviceName && this.deviceNum && this.deviceTemplate);
+    },
   },
   methods: {
     clearForm() {

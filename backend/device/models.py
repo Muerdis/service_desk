@@ -73,7 +73,7 @@ class Reservation(models.Model):
     )
 
     def __str__(self):
-        return '{} {} {}'.format(self.request.id, self.device.name, self.device.inventory_number)
+        return '{} {} {}'.format(self.request.id if self.request else 'Обслуживание', self.device.name, self.device.inventory_number)
 
     class Meta:
         verbose_name = _('Бронирование/обслуживание')

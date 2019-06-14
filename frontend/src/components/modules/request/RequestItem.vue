@@ -83,7 +83,7 @@ export default {
       deviceDialog: false,
       selectedDevices: [],
       dateFrom: new Date().toISOString().substr(0, 10),
-      dateTo: new Date().toISOString().substr(0, 10)
+      dateTo: new Date().toISOString().substr(0, 10),
     };
   },
   mounted() {
@@ -114,12 +114,12 @@ export default {
     },
     createReservations() {
       const state = this;
-      this.selectedDevices.forEach(function(device) {
+      this.selectedDevices.forEach((device) => {
         const info = {
           request: state.request.id,
           from_date: state.dateFrom,
           to_date: state.dateTo,
-          device: device,
+          device,
         };
 
         state.$store.dispatch('request/createReservation', info);
@@ -129,7 +129,7 @@ export default {
       this.selectedDevices = [];
       this.deviceDialog = false;
     },
-    allowedFromDates: function (val) {
+    allowedFromDates(val) {
       let isReserved = false;
       const state = this;
       this.selectedDevices.forEach((el) => {

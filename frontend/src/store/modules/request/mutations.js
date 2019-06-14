@@ -13,8 +13,20 @@ const REQUEST_REASONS = (state, requestReasons) => {
   st.requestReasons = requestReasons;
 };
 
+const RESERVATIONS = (state, reservations) => {
+  const st = state;
+  st.reservations = reservations;
+};
+
+const MAINTENANCES = (state, maintenances) => {
+  const st = state;
+  st.maintenances = maintenances;
+};
+
 export default {
   REQUESTS,
   REQUEST_TYPES,
   REQUEST_REASONS,
+  RESERVATIONS,
+  MAINTENANCES,
 };

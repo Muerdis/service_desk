@@ -20,6 +20,7 @@ export default {
           this.$store.dispatch('request/getRequests');
           this.$store.dispatch('news/getNews');
           this.$store.dispatch('events/getEvents');
+          this.$store.dispatch('request/getReservations');
           this.clearForm();
         });
     }

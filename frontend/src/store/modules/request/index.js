@@ -6,6 +6,8 @@ const state = {
   requests: [],
   requestTypes: [],
   requestReasons: [],
+  reservations: [],
+  maintenances: [],
 };
 
 export default {

@@ -43,6 +43,24 @@ class DeviceSerializer(serializers.ModelSerializer):
 
 class ReservationSerializer(serializers.ModelSerializer):
     """Сериализатор для обслуживания/бронирования"""
+    title = serializers.SerializerMethodField()
+    details = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_title(data):
+        if data.request:
+            return 'Бронирование {}'.format(data.device.inventory_number)
+
+        return 'Обслуживание {}'.format(data.device.inventory_number)
+
+    @staticmethod
+    def get_details(data):
+        if data.request:
+            return 'Оборудование {} забронивароно по заявке № {}<br>{}<br>{}'.format(
+                data.device.inventory_number, data.request.id, data.request.title, data.request.text
+            )
+
+        return 'Обслуживание оборудования {}'.format(data.device.inventory_number)
 
     class Meta:
         model = Reservation

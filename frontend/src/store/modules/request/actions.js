@@ -1,4 +1,9 @@
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+
 import requests from '../../../utils/http';
+
+const moment = extendMoment(Moment);
 
 async function getRequests(context) {
   const infoUrl = '/requests/';
@@ -6,6 +11,41 @@ async function getRequests(context) {
   const infoResponse = await Promise.resolve(infoPromise);
 
   context.commit('REQUESTS', infoResponse.data.results);
+}
+
+async function getReservations(context) {
+  const infoUrl = '/reservations/';
+  const infoPromise = requests.api.get(infoUrl);
+  const infoResponse = await Promise.resolve(infoPromise);
+
+  let reservations = [];
+  let maintenances = [];
+  infoResponse.data.results.forEach((item) => {
+    const dateFrom = new Date(item.from_date);
+    const dateTo = new Date(item.to_date);
+    const range = moment().range(dateFrom, dateTo);
+
+    for (let day of range.by('day')) {
+      if (item.request) {
+        reservations.push({
+          title: item.title,
+          details: item.details,
+          open: false,
+          date: day.format('YYYY-MM-DD'),
+        });
+      } else {
+        maintenances.push({
+          title: item.title,
+          details: item.details,
+          open: false,
+          date: day.format('YYYY-MM-DD'),
+        });
+      }
+    }
+  });
+
+  context.commit('RESERVATIONS', reservations);
+  context.commit('MAINTENANCES', maintenances);
 }
 
 async function changeStatus(context, info) {
@@ -67,4 +107,5 @@ export default {
   getRequestReasons,
   createRequest,
   createReservation,
+  getReservations,
 };

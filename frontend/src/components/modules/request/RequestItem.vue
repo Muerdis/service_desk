@@ -61,7 +61,7 @@
                       first-day-of-week="1"
                     )
               v-spacer
-                v-btn(color="blue darken-1" flat @click="createReservations") Готово
+                v-btn(color="blue darken-1" flat @click="createReservations" :disabled="disableReservation") Готово
                 v-btn(color="blue darken-1" flat @click="clearDeviceForm" right) Закрыть
 </template>
 
@@ -93,6 +93,9 @@ export default {
     ...mapGetters({
       devices: 'device/devices',
     }),
+    disableReservation() {
+      return !(this.selectedDevices.length !== 0 && this.dateFrom && this.dateTo);
+    },
   },
   methods: {
     clearDeviceForm() {
@@ -127,19 +130,36 @@ export default {
       this.deviceDialog = false;
     },
     allowedFromDates: function (val) {
+      let isReserved = false;
+      const state = this;
       this.selectedDevices.forEach((el) => {
         const device = this.devices.filter(item => item.id === el);
-
         if (device) {
-          device[0].res_dates.forEach((el) => {
-            return val < el[0] && val > el[1];
+          device[0].res_dates.forEach((date) => {
+            if (val >= date[0] && val <= date[1]) {
+              isReserved = true;
+              state.dateFrom = null;
+            }
           });
         }
       });
-      return val <= this.dateTo;
+      return !isReserved && val <= this.dateTo;
     },
     allowedToDates(val) {
-      return val >= this.dateFrom;
+      let isReserved = false;
+      const state = this;
+      this.selectedDevices.forEach((el) => {
+        const device = this.devices.filter(item => item.id === el);
+        if (device) {
+          device[0].res_dates.forEach((date) => {
+            if (val >= date[0] && val <= date[1]) {
+              isReserved = true;
+              state.dateTo = null;
+            }
+          });
+        }
+      });
+      return !isReserved && val >= this.dateFrom;
     },
   },
 };

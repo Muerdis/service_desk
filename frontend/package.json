@@ -12,6 +12,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "js-cookie": "^2.2.0",
+    "moment": "^2.24.0",
+    "moment-range": "^4.0.2",
     "register-service-worker": "^1.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.1",
@@ -41,7 +43,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "vue-cli-plugin-vuetify": "^0.4.6",
-    "vue-template-compiler": "^2.5.17",
+    "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.0.5"
   },
   "eslintConfig": {
@@ -89,7 +91,7 @@
     "testMatch": [
       "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
     ],
-    "testURL": "http://139.162.128.213/"
+    "testURL": "http://localhost/"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
